@@ -1,17 +1,14 @@
-import PageObjects.MainPage;
-import org.junit.After;
+import pageobjects.MainPage;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 
 
 @RunWith(Parameterized.class)
-public class TextOfAnswersTest {
-    private final WebDriver driver = new ChromeDriver();
+public class TextOfAnswersTest extends BeforeAndAfter{
+
     private final int index;
     private final String expected;
 
@@ -34,14 +31,8 @@ public class TextOfAnswersTest {
         };
     }
 
-    @Before
-    public void init() {
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-        driver.manage().window().maximize();
-    }
-
     @Test
-    public void TestAnswer(){
+    public void testAnswer(){
         MainPage mainPage = new MainPage(driver);
         mainPage.scroll();
         mainPage.questionClick(index);
@@ -50,8 +41,4 @@ public class TextOfAnswersTest {
         Assert.assertEquals("Текст в ответе не совпадает",expected,actual);
     }
 
-    @After
-    public void teardown() {
-        driver.quit();
-    }
 }

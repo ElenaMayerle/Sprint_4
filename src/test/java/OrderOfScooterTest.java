@@ -1,22 +1,15 @@
-import PageObjects.AboutRent;
-import PageObjects.Confirmation;
-import PageObjects.MainPage;
-import PageObjects.PersonalData;
-import org.junit.After;
+import pageobjects.AboutRent;
+import pageobjects.Confirmation;
+import pageobjects.MainPage;
+import pageobjects.PersonalData;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-
 
 
 @RunWith(Parameterized.class)
-public class OrderOfScooterTest {
+public class OrderOfScooterTest extends BeforeAndAfter{
         private final String name;
         private final String surname;
         private final String address;
@@ -50,15 +43,8 @@ public class OrderOfScooterTest {
         }
 
 
-        private final WebDriver driver= new ChromeDriver();
-        @Before
-        public void init() {
-            driver.get("https://qa-scooter.praktikum-services.ru/");
-            driver.manage().window().maximize();
-        }
-
         @Test
-        public void TestOrderUpper() {
+        public void testOrderUpper() {
             MainPage mainPage = new MainPage(driver);
             mainPage.upperButtonClick();
             PersonalData personalData = new PersonalData(driver);
@@ -75,7 +61,7 @@ public class OrderOfScooterTest {
         }
 
         @Test
-        public void TestOrderLower() {
+        public void testOrderLower() {
         MainPage mainPage = new MainPage(driver);
         mainPage.cookieClick();
         mainPage.scroll();
@@ -93,8 +79,4 @@ public class OrderOfScooterTest {
         Assert.assertTrue("Заказ не создался", confirmation.isOrderSuccess());
     }
 
-        @After
-        public void teardown() {
-            driver.quit();
-        }
     }
